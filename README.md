@@ -1,4 +1,4 @@
-# kmeans
+# kmeans-flutter
 
 A new Flutter project.
 
