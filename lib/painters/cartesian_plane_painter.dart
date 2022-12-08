@@ -8,14 +8,11 @@ class CartesianPlanePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     canvas.translate(Constants.cartesianPlaneOffset, size.height / 2);
-    // debugPrint("Size: $size");
     final paint = Paint()
       ..style = PaintingStyle.stroke
       ..color = Colors.black
       ..strokeWidth = 1;
     final points = _handleCartesianPlanePoints(canvas, size);
-    debugPrint("last X axis point ${points.first.last.dx}");
-    debugPrint("last Y axis point ${points.last.last.dy}");
     canvas.drawPoints(PointMode.polygon, points.first, paint);
     canvas.drawPoints(PointMode.polygon, points.last, paint);
   }

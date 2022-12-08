@@ -11,7 +11,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final _pointsCount = 4;
+  final _pointsCount = 2;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

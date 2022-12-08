@@ -8,7 +8,7 @@ import '../utils/constants.dart';
 class RandomPoints extends StatefulWidget {
   final int count;
   const RandomPoints({
-    this.count = 100,
+    this.count = 2,
     super.key,
   });
 
@@ -18,6 +18,9 @@ class RandomPoints extends StatefulWidget {
 
 class _RandomPointsState extends State<RandomPoints> {
   final _points = <Offset>[];
+
+  double get screenWidth => MediaQuery.of(context).size.width;
+  double get screenHeight => MediaQuery.of(context).size.height;
 
   @override
   void didUpdateWidget(a) {
@@ -36,14 +39,11 @@ class _RandomPointsState extends State<RandomPoints> {
         (screenHeight / 2 - 50).toInt(),
       );
       final randomPoint = Offset(randomDx.toDouble(), -randomDy.toDouble());
-      // final randomPoint = Offset(0, -screenHeight / 2 + 50);
+
       debugPrint("Random point $randomPoint");
       _points.add(randomPoint);
     }
   }
-
-  double get screenWidth => MediaQuery.of(context).size.width;
-  double get screenHeight => MediaQuery.of(context).size.height;
 
   @override
   Widget build(BuildContext context) {
