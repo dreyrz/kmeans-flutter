@@ -7,13 +7,16 @@ class CartesianPlane extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepaintBoundary(
-      child: CustomPaint(
-        size: Size(
-          MediaQuery.of(context).size.width,
-          MediaQuery.of(context).size.height,
+    return SizedBox(
+      height: MediaQuery.of(context).size.height,
+      child: RepaintBoundary(
+        child: CustomPaint(
+          size: Size(
+            MediaQuery.of(context).size.width,
+            MediaQuery.of(context).size.height,
+          ),
+          painter: CartesianPlanePainter(),
         ),
-        painter: CartesianPlanePainter(),
       ),
     );
   }

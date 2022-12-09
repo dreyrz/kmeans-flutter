@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:kmeans/utils/list_utils.dart';
+import 'package:kmeans/utils/points_utils.dart';
 import 'package:kmeans/widgets/cartesian_plane.dart';
+import 'package:kmeans/widgets/cluster_area.dart';
 
+import 'widgets/button.dart';
 import 'widgets/random_points.dart';
 
 class Home extends StatefulWidget {
@@ -10,8 +14,13 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
-  final _pointsCount = 2;
+class _HomeState extends State<Home> with ListUtils, PointsUtils {
+  List<Offset> _points = [];
+
+  void _generatePoints() {
+    _points = randomPointsGenerator(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,28 +29,22 @@ class _HomeState extends State<Home> {
       ),
       body: Stack(
         children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height,
-            child: const CartesianPlane(),
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height,
-            child: RandomPoints(
-              count: _pointsCount,
-            ),
+          const CartesianPlane(),
+          RandomPoints(points: _points),
+          ClusterArea(
+            firstPoint: firstOrNull(_points),
+            lastPoint: lastOrNull(_points),
           ),
           Positioned(
             bottom: 0,
             left: 0,
             right: 0,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  setState(() {});
-                },
-                child: const Text("Generate random points"),
-              ),
+            child: Button(
+              onPressed: () {
+                setState(() {
+                  _generatePoints();
+                });
+              },
             ),
           ),
         ],
