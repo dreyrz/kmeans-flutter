@@ -54,8 +54,11 @@ class PointsPainter extends CustomPainter {
     final pointPaint = Paint()
       ..style = PaintingStyle.stroke
       ..color = cluster.color
-      ..strokeWidth = 8;
-    canvas.drawPoints(PointMode.points, cluster.points, pointPaint);
+      ..strokeWidth = 4;
+
+    for (final point in cluster.points) {
+      canvas.drawCircle(point, 2, pointPaint);
+    }
   }
 
   void _paintCentroids(List<Offset> centroids, Canvas canvas) {
@@ -70,8 +73,9 @@ class PointsPainter extends CustomPainter {
     final highlightPointPaint = Paint()
       ..style = PaintingStyle.stroke
       ..color = Colors.red
-      ..strokeWidth = 10;
-    canvas.drawPoints(PointMode.points, [highlightPoint], highlightPointPaint);
+      ..strokeWidth = 2;
+
+    canvas.drawCircle(highlightPoint, 10, highlightPointPaint);
   }
 
   void _erasePreviewsCentroids(List<Offset> centroids, Canvas canvas) {
