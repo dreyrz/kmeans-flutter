@@ -1,3 +1,4 @@
 class Constants {
-  static const cartesianPlaneOffset = 24.0;
+  static const cartesianPlaneLeftPadding = 24.0;
+  static const cartesianPlaneHeightFactor = 0.9;
 }

@@ -1,7 +1,5 @@
 mixin ListUtils<T> {
-  T? firstOrNull(
-    List<T> list,
-  ) {
+  T? firstOrNull(List<T> list) {
     if (list.isEmpty) {
       return null;
     } else {
@@ -9,9 +7,7 @@ mixin ListUtils<T> {
     }
   }
 
-  T? lastOrNull(
-    List<T> list,
-  ) {
+  T? lastOrNull(List<T> list) {
     if (list.isEmpty) {
       return null;
     } else {

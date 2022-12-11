@@ -4,23 +4,24 @@ import 'package:flutter/material.dart';
 
 import 'constants.dart';
 
-mixin PointsUtils {
+mixin OffsetUtils {
   List<Offset> randomPointsGenerator(
-    BuildContext context, {
+    Size size, {
     Random? random,
     int count = 2,
   }) {
     random ??= Random();
 
     final List<Offset> points = [];
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = size.width;
+    final screenHeight = size.height;
 
-    const cartesianPlaneOffset = Constants.cartesianPlaneOffset;
+    const cartesianPlaneOffset = Constants.cartesianPlaneLeftPadding;
 
     for (int i = 0; i < count; i++) {
       final dxLimit = (screenWidth - cartesianPlaneOffset).toInt();
-      final dyLimit = (screenHeight / 2 - 50).toInt();
+      final dyLimit =
+          (screenHeight * Constants.cartesianPlaneHeightFactor - 50).toInt();
 
       final randomDx = random.nextInt(dxLimit);
       final randomDy = random.nextInt(dyLimit);

@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:kmeans/models/clustering_process.dart';
 
-import '../painters/random_points_painter.dart';
+import '../painters/points_painter.dart';
 
-typedef RandomPointsCallback = void Function(List<Offset>);
-
-class RandomPoints extends StatefulWidget {
-  final List<Offset> points;
-  const RandomPoints({required this.points, super.key});
+class PointsTracer extends StatefulWidget {
+  final ClusteringProcess data;
+  const PointsTracer({required this.data, super.key});
 
   @override
-  State<RandomPoints> createState() => _RandomPointsState();
+  State<PointsTracer> createState() => _PointsTracerState();
 }
 
-class _RandomPointsState extends State<RandomPoints> {
+class _PointsTracerState extends State<PointsTracer> {
   double get screenWidth => MediaQuery.of(context).size.width;
   double get screenHeight => MediaQuery.of(context).size.height;
 
@@ -25,7 +24,7 @@ class _RandomPointsState extends State<RandomPoints> {
           screenWidth,
           screenHeight,
         ),
-        painter: RandomPointsPainter(widget.points),
+        painter: PointsPainter(widget.data),
       ),
     );
   }

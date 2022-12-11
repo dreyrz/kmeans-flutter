@@ -7,7 +7,11 @@ import '../utils/constants.dart';
 class CartesianPlanePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.translate(Constants.cartesianPlaneOffset, size.height / 2);
+    canvas.translate(
+      Constants.cartesianPlaneLeftPadding,
+      size.height * Constants.cartesianPlaneHeightFactor,
+    );
+
     final paint = Paint()
       ..style = PaintingStyle.stroke
       ..color = Colors.black
