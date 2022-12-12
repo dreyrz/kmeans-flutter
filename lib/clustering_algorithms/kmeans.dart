@@ -56,10 +56,10 @@ class Kmeans extends ClusteringAlgorithm<ClusteringProcess>
     List<Offset>? centroids,
     List<Cluster>? clusters,
     Offset? point,
-    int delay = 500,
+    int delayInMillisSeconds = 500,
   }) async {
     if (kDebugMode) {
-      delay = 100;
+      delayInMillisSeconds = 100;
     }
     // log("Streaming data");
     final process = ClusteringProcess(
@@ -72,7 +72,7 @@ class Kmeans extends ClusteringAlgorithm<ClusteringProcess>
     );
 
     _controller.add(process);
-    await Future.delayed(Duration(milliseconds: delay));
+    await Future.delayed(Duration(milliseconds: delayInMillisSeconds));
   }
 
   Future<void> _createClusters() async {
