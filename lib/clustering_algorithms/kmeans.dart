@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:kmeans/clustering_algorithms/clustering_algorithm.dart';
 import 'package:kmeans/utils/math_utils.dart';
@@ -56,11 +55,9 @@ class Kmeans extends ClusteringAlgorithm<ClusteringProcess>
     List<Offset>? centroids,
     List<Cluster>? clusters,
     Offset? point,
-    int delayInMillisSeconds = 500,
   }) async {
-    if (kDebugMode) {
-      delayInMillisSeconds = 100;
-    }
+    int delayInMillisSeconds = 10000 ~/ points.length;
+
     // log("Streaming data");
     final process = ClusteringProcess(
       points,
