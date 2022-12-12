@@ -4,18 +4,18 @@ class Cluster {
   final List<Offset> points;
   Offset centroid;
   Color color;
+
   Cluster(this.points, this.centroid, this.color);
 
-  factory Cluster.empty(Offset centroid, Color color) =>
-      Cluster([], centroid, color);
-
-  void addPoint(Offset point) {
-    points.add(point);
+  factory Cluster.empty(Offset centroid, Color color) {
+    return Cluster([], centroid, color);
   }
 
-  void changeCentroid(Offset newCentroid) {
-    centroid = newCentroid;
-  }
+  void addPoint(Offset point) => points.add(point);
+
+  void changeCentroid(Offset newCentroid) => centroid = newCentroid;
+
+  bool removePoint(Offset point) => points.remove(point);
 
   Offset estimateMeanPoint() {
     if (points.isEmpty) {

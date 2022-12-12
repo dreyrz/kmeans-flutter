@@ -6,6 +6,7 @@ abstract class ClusteringAlgorithm<Process> {
   ClusteringAlgorithm(this.points);
 
   Future<void> apply(Size size, {int iterations = 4});
-  void dispose();
+  void cancel();
+
   Stream<Process> get stream;
 }

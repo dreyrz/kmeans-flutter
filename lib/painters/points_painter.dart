@@ -13,6 +13,11 @@ class PointsPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    final centroidPaint = Paint()
+      ..style = PaintingStyle.fill
+      ..color = Colors.black
+      ..strokeWidth = 8
+      ..strokeCap = StrokeCap.square;
     // Since the canvas in the CartesianPlanePainter class
     // was translated by this offset
     canvas.translate(
@@ -22,23 +27,21 @@ class PointsPainter extends CustomPainter {
     _paintPoints(data.points, canvas);
 
     if (data.hasPreviewsCentroids) {
-      _erasePreviewsCentroids(data.previewsCentroids!, canvas);
+      _erasePreviewsCentroids(data.previewsCentroids!, canvas, centroidPaint);
     }
     if (data.hasCentroids) {
-      // debugPrint("PAINTING CENTROIDS");
-      _paintCentroids(data.centroids!, canvas);
+      _paintCentroids(data.centroids!, canvas, centroidPaint);
     }
 
     if (data.hasClusters) {
-      // debugPrint("PAINTING CLUSTERS");
-      for (final cluster in data.currentClusters!) {
+      for (final cluster in data.clusters!) {
         _paintClusterPoints(cluster, canvas);
       }
     }
 
     if (data.hasHighlightPoint) {
-      // debugPrint("PAINTING HIGHLIGHTPOINTS");
       _paintPointHighlight(data.highlightPoint!, canvas);
+      _drawDistLine(data.centroids!, data.highlightPoint!, canvas);
     }
   }
 
@@ -46,7 +49,8 @@ class PointsPainter extends CustomPainter {
     final pointPaint = Paint()
       ..style = PaintingStyle.stroke
       ..color = Colors.black
-      ..strokeWidth = 3;
+      ..strokeWidth = 3
+      ..strokeCap = StrokeCap.round;
     canvas.drawPoints(PointMode.points, points, pointPaint);
   }
 
@@ -54,18 +58,15 @@ class PointsPainter extends CustomPainter {
     final pointPaint = Paint()
       ..style = PaintingStyle.stroke
       ..color = cluster.color
-      ..strokeWidth = 4;
+      ..strokeWidth = 4
+      ..strokeWidth = 6
+      ..strokeCap = StrokeCap.round;
 
-    for (final point in cluster.points) {
-      canvas.drawCircle(point, 2, pointPaint);
-    }
+    canvas.drawPoints(PointMode.points, cluster.points, pointPaint);
   }
 
-  void _paintCentroids(List<Offset> centroids, Canvas canvas) {
-    final centroidPaint = Paint()
-      ..style = PaintingStyle.stroke
-      ..color = Colors.black
-      ..strokeWidth = 8;
+  void _paintCentroids(
+      List<Offset> centroids, Canvas canvas, Paint centroidPaint) {
     canvas.drawPoints(PointMode.points, centroids, centroidPaint);
   }
 
@@ -78,17 +79,24 @@ class PointsPainter extends CustomPainter {
     canvas.drawCircle(highlightPoint, 10, highlightPointPaint);
   }
 
-  void _erasePreviewsCentroids(List<Offset> centroids, Canvas canvas) {
-    final eraser = Paint()
-      ..style = PaintingStyle.stroke
-      ..color = Colors.white
-      ..strokeWidth = 8;
+  void _erasePreviewsCentroids(
+      List<Offset> centroids, Canvas canvas, Paint centroidPaint) {
+    final eraser = centroidPaint..color = Colors.white;
     canvas.drawPoints(PointMode.points, centroids, eraser);
+  }
+
+  void _drawDistLine(List<Offset> centroids, Offset point, Canvas canvas) {
+    final linePaint = Paint()
+      ..color = Colors.red
+      ..strokeWidth = 1;
+    for (final centroid in centroids) {
+      canvas.drawLine(point, centroid, linePaint);
+    }
   }
 
   @override
   bool shouldRepaint(PointsPainter oldDelegate) =>
       oldDelegate.data.centroids != data.centroids ||
-      oldDelegate.data.currentClusters != data.currentClusters ||
+      oldDelegate.data.clusters != data.clusters ||
       oldDelegate.data.highlightPoint != data.highlightPoint;
 }

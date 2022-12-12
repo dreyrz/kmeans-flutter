@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:kmeans/models/clustering_process.dart';
-import 'package:kmeans/services/kmeans.dart';
+import 'package:kmeans/clustering_algorithms/kmeans.dart';
 import 'package:kmeans/utils/list_utils.dart';
 import 'package:kmeans/utils/points_utils.dart';
 import 'package:kmeans/widgets/cartesian_plane.dart';
@@ -55,16 +55,16 @@ class _KmeansVisualizerState extends State<KmeansVisualizer>
 
   void _clusteringListener(ClusteringProcess data) {
     controller.add(data);
-    if (data.currentIteration != null) {
+    if (data.iteration != null) {
       setState(() {
-        _currentIteration = data.currentIteration!;
+        _currentIteration = data.iteration!;
       });
     }
   }
 
   @override
   void dispose() {
-    kmeans.dispose();
+    kmeans.cancel();
     super.dispose();
   }
 
